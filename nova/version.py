@@ -12,8 +12,6 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-import pbr.version
-
 from nova.openstack.common.gettextutils import _
 
 NOVA_VENDOR = "OpenStack Foundation"
@@ -21,7 +19,20 @@ NOVA_PRODUCT = "OpenStack Nova"
 NOVA_PACKAGE = None  # OS distro package version suffix
 
 loaded = False
-version_info = pbr.version.VersionInfo('nova')
+
+
+class VersionInfo(object):
+    release = "REDHATNOVARELEASE"
+    version = "REDHATNOVAVERSION"
+
+    def version_string(self):
+        return self.version
+
+    def release_string(self):
+        return self.release
+
+
+version_info = VersionInfo()
 version_string = version_info.version_string
 
 
