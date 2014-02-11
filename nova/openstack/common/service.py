@@ -34,6 +34,7 @@ from nova.openstack.common import eventlet_backdoor
 from nova.openstack.common.gettextutils import _
 from nova.openstack.common import importutils
 from nova.openstack.common import log as logging
+from nova.openstack.common import systemd
 from nova.openstack.common import threadgroup
 
 
@@ -63,6 +64,7 @@ class Launcher(object):
 
         """
         service.start()
+        systemd.notify_once()
         service.wait()
 
     def launch_service(self, service):
