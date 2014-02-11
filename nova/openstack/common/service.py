@@ -41,6 +41,7 @@ from nova.openstack.common import eventlet_backdoor
 from nova.openstack.common.gettextutils import _  # noqa
 from nova.openstack.common import importutils
 from nova.openstack.common import log as logging
+from nova.openstack.common import systemd
 from nova.openstack.common import threadgroup
 
 
@@ -481,6 +482,7 @@ class Services(object):
 
         """
         service.start()
+        systemd.notify_once()
         done.wait()
 
 
