@@ -64,7 +64,6 @@ class Launcher(object):
 
         """
         service.start()
-        systemd.notify_once()
         service.wait()
 
     def launch_service(self, service):
@@ -112,6 +111,7 @@ class ServiceLauncher(Launcher):
         signal.signal(signal.SIGTERM, self._handle_signal)
         signal.signal(signal.SIGINT, self._handle_signal)
 
+        systemd.notify_once()
         LOG.debug(_('Full set of CONF:'))
         CONF.log_opt_values(LOG, std_logging.DEBUG)
 
@@ -275,6 +275,7 @@ class ProcessLauncher(object):
     def wait(self):
         """Loop waiting on children to die and respawning as necessary"""
 
+        systemd.notify_once()
         LOG.debug(_('Full set of CONF:'))
         CONF.log_opt_values(LOG, std_logging.DEBUG)
 
